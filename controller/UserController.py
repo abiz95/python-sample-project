@@ -59,7 +59,7 @@ def test():
 
 
 @app.route('/update/<int:id>', methods=['PUT'])
-def test(id):
+def testupdate(id):
     try:
         json = request.json
         email = json['email']

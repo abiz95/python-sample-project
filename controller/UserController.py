@@ -10,6 +10,7 @@ def getAllData():
     try:
         if request.method == 'GET':
             data = getData("SELECT * FROM User")
+            app.logger.info('Info level log')
             response = jsonify(data)
             response.status_code = HttpStatus.OK
             return response

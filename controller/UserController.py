@@ -30,7 +30,7 @@ def getAllData():
 
 
 @app.route('/add', methods=['POST'])
-def saveData():
+def saveDatas():
     try:
         json = request.json
         email = json['email']
@@ -69,6 +69,30 @@ def updateData(id):
             sql = "UPDATE user SET email = %s, password = %s, username = %s WHERE username = %s"
             data = (email, password, username, id)
             response = saveData(sql, data)
+            response = jsonify(response)
+            response.status_code = HttpStatus.OK
+            return response
+        else:
+            ResponseData.construct['success'] = False
+            ResponseData.construct['error'] = 'Something happened. Please try again!'
+            response = jsonify(ResponseData.construct)
+            response.status_code = HttpStatus.BAD_REQUEST
+            return response
+    except Exception as e:
+        print(e)
+        ResponseData.construct['success'] = False
+        ResponseData.construct['error'] = str(e)
+        response = jsonify(ResponseData.construct)
+        response.status_code = HttpStatus.BAD_REQUEST
+        return response
+
+
+@app.route('/delete/<string:id>', methods=['DELETE'])
+def deleteData(id):
+    try:
+        if request.method == 'DELETE':
+            sql = "DELETE FROM user WHERE username = %s"
+            response = saveData(sql, id)
             response = jsonify(response)
             response.status_code = HttpStatus.OK
             return response

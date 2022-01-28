@@ -34,7 +34,6 @@ def saveData(query, data):
         return data
     except Exception as e:
         print(e)
-        raise ValueError(e)
     finally:
         cursor.close()
         conn.close()

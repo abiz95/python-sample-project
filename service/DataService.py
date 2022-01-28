@@ -27,6 +27,7 @@ def saveData(query, data):
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cursor.execute(query, data)
+        print(cursor)
         data = cursor.fetchall()
         conn.commit()
         # response = jsonify(data)

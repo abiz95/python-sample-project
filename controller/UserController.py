@@ -6,7 +6,7 @@ from service.DataService import getData, saveData
 
 
 @app.route('/all', methods=['GET'])
-def emp():
+def getAllData():
     try:
         if request.method == 'GET':
             data = getData("SELECT * FROM User")
@@ -30,7 +30,7 @@ def emp():
 
 
 @app.route('/add', methods=['POST'])
-def test():
+def saveData():
     try:
         json = request.json
         email = json['email']
@@ -58,14 +58,14 @@ def test():
         return response
 
 
-@app.route('/update/<int:id>', methods=['PUT'])
-def testupdate(id):
+@app.route('/update/<string:id>', methods=['PUT'])
+def updateData(id):
     try:
         json = request.json
         email = json['email']
         password = json['password']
         username = json['username']
-        if email and password and username and request.method == 'POST':
+        if email and password and username and request.method == 'PUT':
             sql = "UPDATE user SET email = %s, password = %s, username = %s WHERE username = %s"
             data = (email, password, username, id)
             response = saveData(sql, data)
